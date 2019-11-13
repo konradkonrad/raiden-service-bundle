@@ -71,7 +71,11 @@ provide configurations with services split among multiple servers.
 ```
 
 
+<<<<<<< HEAD
 We use Traefik as a reverse proxy and also utilize its capability of automatically provisioning
+=======
+We use Traefik as a reverse proxy and also utilize its capability of automatically provisiong
+>>>>>>> Update README
 Let's Encrypt TLS certificates.
 
 The Synapse server is being run in the so-called split worker configuration which increases throughput.
