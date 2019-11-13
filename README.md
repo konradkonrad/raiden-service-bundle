@@ -37,7 +37,7 @@ provide configurations with services split among multiple servers.
 - Synapse
 - Postgres
 - Traefik
-- Raiden Services
+- Raiden Services (Pathfinding, Monitoring)
 
 ### Structure
 
@@ -47,27 +47,27 @@ provide configurations with services split among multiple servers.
 |                   |
 |   Raiden clients  |
 |                   |
-+---------+---------+
-          |
-==========|==========
-          |
-+---------v---------+
-|                   |        Federation to other
-|      Traefik    +-+----->  Raiden Matrix servers
++---+-----------+---+
+    |matrix://  |pfs://
+====|===========|====
+    |           |
++---v-----------v---+                       Federation to
+|                 +-+-------------------->  other Raiden
+|      Traefik    | |                       Matrix servers
 |                 | |
 +---------+-------+-+---------+
           |       |           |
-+---------v-------v-+   +-----v----------------+
-|                   |   |                      |
-|      Synapse      |   |  Raiden Pathfinding  |
-|                   |   |                      |
-+---------+---------+   +----------------------+
-          |
-+---------v---------+
-|                   |
-|     Postgres      |
-|                   |
-+-------------------+
++---------v-------v-+   +-----v----------------+ +---------------------+
+|                   |   |                      | |                     |
+|      Synapse      |   |  Raiden Pathfinding  | |  Raiden Monitoring  |
+|                   |   |                      | |                     |
++---------+---------+   +-------------------+--+ +-+-------------------+
+          |                                 |      |
++---------v---------+                     +-v- - - v -+
+|                   |                     |
+|     Postgres      |                        ETH_RPC  |
+|                   |                     |
++-------------------+                     + - - - - - +
 ```
 
 
@@ -159,7 +159,6 @@ configuration changes and then run the following commands:
 ```shell
 git fetch origin --tags
 git reset --hard <new-release-tag>
-docker-compose build --pull
 docker-compose pull
 docker-compose up -d
 ```
@@ -190,7 +189,10 @@ or contact us via email at contact@raiden.nework.
 
 
 ## Changelog
-
+- WIP - `WIP` - **Upgrade release**
+  - Upgrade Synapse to v1.4.1
+  - Use `stable` release from https://github.com/raiden-network/raiden-services
+  - Use version tagged public images instead of building locally.
 - 2019-10-07 - `2019.10.1` - **Upgrade release**
   - Upgrade https://github.com/raiden-network/raiden-services image to `v0.4.0`
 - 2019-10-02 - `2019.10.0` - **Upgrade release**
